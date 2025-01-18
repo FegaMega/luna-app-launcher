@@ -1,0 +1,2 @@
+#!/bin/bash
+gradlew clean build && cd build/libs && java -jar main_app-1.0-SNAPSHOT.jar&& cd ../..
