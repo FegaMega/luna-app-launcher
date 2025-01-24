@@ -1,11 +1,15 @@
 plugins {
     id 'java'
     id 'application'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 group = 'uk.infy.luna'
-version = '1.0-SNAPSHOT'
+version = '1.0'
 
+application {
+    mainClass = 'uk.infy.luna.Main'
+}
 repositories {
     mavenCentral()
 }
@@ -13,6 +17,8 @@ repositories {
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'com.formdev:flatlaf:3.0'
+    implementation 'com.formdev:flatlaf-intellij-themes:3.0'
 }
 
 test {
@@ -23,5 +29,21 @@ jar {
         attributes(
                 'Main-Class': 'uk.infy.luna.Main'
         )
+    }
+    from('src/main/resources') {
+        into 'uk/infy/luna'
+    }
+}
+processResources {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    filesMatching('**/main.png') {
+    }
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDir 'src/main/resources'
+        }
     }
 }
