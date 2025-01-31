@@ -1,3 +1,0 @@
-#!/bin/bash
-echo "This file is not a jbuild file or idk i named it jbuild for java build (made this in nano) and then i realized intellij says this is a jbuild file thing that can be viewed with ReasonML plugin but it isnt what intellij thinks it is" &
-./gradlew clean build && cd build/libs && rm Luna\ App\ Launcher-1.0.jar && java -jar Luna\ App\ Launcher-1.0-all.jar && cd ../..
