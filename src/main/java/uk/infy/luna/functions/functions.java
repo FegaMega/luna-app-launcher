@@ -18,20 +18,23 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.io.FileInputStream;
 
 import com.formdev.flatlaf.*;
-import com.formdev.flatlaf.intellijthemes.FlatArcDarkOrangeIJTheme;
-import com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatLightOwlIJTheme;
+import com.formdev.flatlaf.intellijthemes.*;
+import com.formdev.flatlaf.intellijthemes.materialthemeuilite.*;
 
 public class functions {
     public static void browserurl(String url, JFrame parentFrame) {
-        // example usage:
-        // myDiscordServerButton.putClientProperty("url", "https://discord.gg/f5rkgMphd4");
-        // myDiscordServerButton.addActionListener(openLinkAction);
-        // where the button is myDiscordServerButton and i modify the url to the url i want
+        /*
+         example usage:
+         myDiscordServerButton.putClientProperty("url", "https://discord.gg/f5rkgMphd4");
+         myDiscordServerButton.addActionListener(openLinkAction);
+         where the button is myDiscordServerButton and i modify the url to the url i want
+        */
         try {
             if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
                 Desktop.getDesktop().browse(new URI(url));
@@ -46,12 +49,14 @@ public class functions {
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    public static JLabel luna(int width, int height, int x, int y) {
-        // example usage
-        // JLabel name = functions.luna(100, 100, 50, 50);
-        // panel2.add(name);
-        // where (100, 100, 50, 50) would be width height x and y
-        // replace name with anything as long as both have same one
+    public static  JLabel luna(int width, int height, int x, int y) {
+        /*
+         example usage
+         JLabel name = functions.luna(100, 100, 50, 50);
+         panel2.add(name);
+         where (100, 100, 50, 50) would be width height x and y
+         replace name with anything as long as both have same one
+        */
         String imagePath = "/uk/infy/luna/resources/main.png";
         URL imgUrl = functions.class.getResource(imagePath);
         if (imgUrl == null) {
@@ -66,13 +71,15 @@ public class functions {
         return imageLabel;
     }
     public static void executeCommand(String command) {
-//        Usage:
-//        luna_launcher.addActionListener(e -> {
-//           String command = "java -jar luna_launcher/luna_launcher.jar";
-//           Functions.executeCommand(command);
-//         });
-//        replace luna_launcher with the button's name
-//        and replace what's inside "" of String command with the command i want to run
+/*
+        Usage:
+        luna_launcher.addActionListener(e -> {
+           String command = "java -jar luna_launcher/luna_launcher.jar";
+           Functions.executeCommand(command);
+         });
+        replace luna_launcher with the button's name
+        and replace what's inside "" of String command with the command i want to run
+*/
         try {
             Process process = Runtime.getRuntime().exec(command);
             int exitCode = process.waitFor();
@@ -85,8 +92,10 @@ public class functions {
         }
     }
     public static java.util.List<String> checkDirectory(File directory, HashSet<String> allowedFilesAndFolders) {
-//        List<String> unallowedFiles = functions.checkDirectory(directory, new HashSet<>(allowedList));
-//        Line 33 in Main.java
+/*
+        List<String> unallowedFiles = functions.checkDirectory(directory, new HashSet<>(allowedList));
+        Line 33 in Main.java
+*/
         List<String> unallowedFiles = new ArrayList<>();
 
         if (!directory.isDirectory()) {
@@ -111,34 +120,28 @@ public class functions {
         return unallowedFiles;
     }
     public static void downloadFile(String fileUrl, String destinationFile) throws IOException {
-//        import uk.infy.luna.Functions.functions;
-//        luna_launcher.addActionListener(e -> {
-//            String filePath = "./luna_launcher/luna_launcher.jar"; This is where it should be downloaded
-//            File file = new File(filePath);
-//            if (file.exists()) {
-//                String command = "java -jar " + filePath; Command 2 run
-//                functions.executeCommand(command); Run command if file exist
-//            } else {
-//                try {
-//                    String fileUrl = "https://github.com/Hussein-Playz/Luna-Launcher/releases/download/Release/Luna-Launcher-3.4.38.1.jar"; This would be the file i want to download
-//                    functions.downloadFile(fileUrl, filePath); Downloads it straight to the area i want it to be
-//                    String command = "java -jar " + filePath; Command to run after download
-//                    functions.executeCommand(command); Run that command
-//                } catch (IOException ex) {
-//                    JOptionPane.showMessageDialog(null, "Failed to download the file: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE); Error if failed
-//                }
-//            }
-//        });
+/*
+        import uk.infy.luna.Functions.functions;
+        luna_launcher.addActionListener(e -> {
+            String filePath = "./luna_launcher/luna_launcher.jar"; This is where it should be downloaded
+            File file = new File(filePath);
+            if (file.exists()) {
+                String command = "java -jar " + filePath; Command 2 run
+                functions.executeCommand(command); Run command if file exist
+            } else {
+                try {
+                    String fileUrl = "https://github.com/Hussein-Playz/Luna-Launcher/releases/download/Release/Luna-Launcher-3.4.38.1.jar"; This would be the file i want to download
+                    functions.downloadFile(fileUrl, filePath); Downloads it straight to the area i want it to be
+                    String command = "java -jar " + filePath; Command to run after download
+                    functions.executeCommand(command); Run that command
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null, "Failed to download the file: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE); Error if failed
+                }
+            }
+        });
+*/
         URL url = new URL(fileUrl);
         URLConnection connection = url.openConnection();
-        File dir = new File("./luna_launcher");
-        File placeholder = new File("./placeholder");
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
-        if (!placeholder.exists()) {
-            placeholder.mkdirs();
-        }
         try (InputStream inputStream = connection.getInputStream();
              FileOutputStream outputStream = new FileOutputStream(destinationFile)) {
             byte[] buffer = new byte[4096];
@@ -177,24 +180,26 @@ public class functions {
         }
     }
     public static void openSourceCodeViewer(String sourceDirectory) {
-//        Usage is the same as download one but instead we have some extra stuff
-//        luna_launcher_source_code.addActionListener(e -> {
-//            String filePathZip = "./sources/luna_launcher.zip"; setting up download stuff
-//            String filePath = "./sources/luna_launcher"; setting up Paths
-//            File file = new File(filePath); setting up download stuff
-//            if (file.exists()) { if the file exists then LAUNCH THIS CODE VIEWER at filePath aka ./sources/luna_launcher this case
-//                functions.openSourceCodeViewer(filePath);
-//            } else {
-//                try {
-//                    String fileUrl = "https://github.com/Hussein-Playz/Luna-Launcher/archive/refs/heads/master.zip"; setting up download stuff
-//                    functions.downloadFile(fileUrl, filePathZip); setting up download stuff
-//                    functions.extractZipFile(filePathZip, filePath); setting up download stuff
-//                    functions.openSourceCodeViewer(filePath); Launch the code viewer at filePath aka ./sources/luna_launcher in this case
-//                } catch (IOException ex) {
-//                    JOptionPane.showMessageDialog(null, "Failed to download the file: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE); error if failed
-//                }
-//            }
-//        });
+/*
+        Usage is the same as download one but instead we have some extra stuff
+        luna_launcher_source_code.addActionListener(e -> {
+            String filePathZip = "./sources/luna_launcher.zip"; setting up download stuff
+            String filePath = "./sources/luna_launcher"; setting up Paths
+            File file = new File(filePath); setting up download stuff
+            if (file.exists()) { if the file exists then LAUNCH THIS CODE VIEWER at filePath aka ./sources/luna_launcher this case
+                functions.openSourceCodeViewer(filePath);
+            } else {
+                try {
+                    String fileUrl = "https://github.com/Hussein-Playz/Luna-Launcher/archive/refs/heads/master.zip"; setting up download stuff
+                    functions.downloadFile(fileUrl, filePathZip); setting up download stuff
+                    functions.extractZipFile(filePathZip, filePath); setting up download stuff
+                    functions.openSourceCodeViewer(filePath); Launch the code viewer at filePath aka ./sources/luna_launcher in this case
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null, "Failed to download the file: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE); error if failed
+                }
+            }
+        });
+*/
         File rootDir = new File(sourceDirectory);
 
         if (!rootDir.exists() || !rootDir.isDirectory()) {
@@ -245,16 +250,18 @@ public class functions {
         }
     }
     public static void addlunaimage(JButton button) {
-//        functions.addlunaimage(luna_launcher);
-//        functions.addlunaimage(luna_launcher_source_code);
-//        functions.addlunaimage(app_launcher_source_code);
-//        functions.addlunaimage(website_source_code);
-//        functions.addlunaimage(myWebsiteButton);
-//        functions.addlunaimage(website1);
-//        functions.addlunaimage(website2);
-//        functions.addlunaimage(website3);
-//        functions.addlunaimage(website4);
-//        just call the function and in the () put your button's name THAT'S HOW FUCKING EASY IT IS
+/*
+        functions.addlunaimage(luna_launcher);
+        functions.addlunaimage(luna_launcher_source_code);
+        functions.addlunaimage(app_launcher_source_code);
+        functions.addlunaimage(website_source_code);
+        functions.addlunaimage(myWebsiteButton);
+        functions.addlunaimage(website1);
+        functions.addlunaimage(website2);
+        functions.addlunaimage(website3);
+        functions.addlunaimage(website4);
+        just call the function and in the () put your button's name THAT'S HOW FUCKING EASY IT IS
+*/
         try {
             URL imageUrl = functions.class.getClassLoader().getResource("uk/infy/luna/resources/main.png");
             if (imageUrl != null) {
@@ -287,9 +294,11 @@ public class functions {
         }
     }
     public static void setTheme(JButton button, String themeName) {
-        // Usage example:
-        // functions.setTheme(myButton, "dracula");
-        // Replace myButton with your button name and "dracula" with the theme name.
+        /*
+         Usage example:
+         functions.setTheme(myButton, "dracula");
+         Replace myButton with your button name and "dracula" with the theme name.
+        */
         button.addActionListener(e -> {
             Path themeFilePath = Path.of("./themes/theme.txt");
             try {
@@ -321,6 +330,20 @@ public class functions {
                 ex.printStackTrace();
             }
         });
+    }
+    public static void DeleteStuff(File file) {
+        /*
+                String filepath = "C:\\GFG"; store file path
+                File file = new File(filepath);
+                DeleteStuff(file); call DeleteStuff function to delete subdirectory and files
+                file.delete(); delete main GFG folder
+        */
+        for (File subfile : Objects.requireNonNull(file.listFiles())) {
+            if (subfile.isDirectory()) {
+                DeleteStuff(subfile);
+            }
+            subfile.delete();
+        }
     }
 //    luna is a placeholder for now :) not sure when i'll use it but it will be sometime
 }

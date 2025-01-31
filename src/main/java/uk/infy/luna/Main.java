@@ -17,6 +17,7 @@ import java.util.Objects;
 
 import com.formdev.flatlaf.intellijthemes.*;
 import com.formdev.flatlaf.intellijthemes.materialthemeuilite.*;
+import uk.infy.luna.functions.AutoUpdater;
 import uk.infy.luna.gui.Errors.Not_In_Empty_Folder;
 import uk.infy.luna.gui.Main_GUI;
 import uk.infy.luna.functions.functions;
@@ -25,7 +26,21 @@ public class Main {
     private static final Path themeFilePath = Path.of("./themes/theme.txt");
     static String themepath = "./themes/theme.txt";
     public static void main(String[] args) throws URISyntaxException {
-        String[] requiredDirectories = {"luna_launcher", "logs", "sources", "themes"};
+        String[] allowedFilesAndFolders = {
+                "Luna App Launcher-3.0.jar", "luna_launcher", "logs", "sources", "themes",
+                "WIP Luna Terminal (You found out my next project cuz u read this code nice)",
+                "luna_unknown_app"
+        };
+        File directory = new File(".");
+        String appFileName = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getName();
+        List<String> allowedList = new ArrayList<>(List.of(allowedFilesAndFolders));
+        allowedList.add(appFileName);
+        List<String> unallowedFiles = functions.checkDirectory(directory, new HashSet<>(allowedList));
+        if (!unallowedFiles.isEmpty()) {
+            Not_In_Empty_Folder.showError(unallowedFiles);
+            return;
+        }
+        String[] requiredDirectories = {"luna_launcher", "logs", "sources", "themes", "luna_unknown_app"};
         for (String dirName : requiredDirectories) {
             File dir = new File(dirName);
             if (!dir.exists()) {
@@ -67,26 +82,14 @@ public class Main {
             System.err.println("An error occurred.");
             ex.printStackTrace();
         }
-
-
-        String[] allowedFilesAndFolders = {"testfile.txt", "luna_launcher", "logs", "sources", "themes"};
-        File directory = new File(".");
-        String appFileName = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI()).getName();
-        List<String> allowedList = new ArrayList<>(List.of(allowedFilesAndFolders));
-        allowedList.add(appFileName);
-        List<String> unallowedFiles = functions.checkDirectory(directory, new HashSet<>(allowedList));
-
-        if (!unallowedFiles.isEmpty()) {
-            Not_In_Empty_Folder.showError(unallowedFiles);
-            return;
-        }
-
-
-
-        SwingUtilities.invokeLater(Main::run);
+        SwingUtilities.invokeLater(Main::update);
     }
-
-    private static void run() {
+    private static void update() {
+        boolean updated = AutoUpdater.checkForUpdates(); if (!updated) {
+            SwingUtilities.invokeLater(Main::run);
+        }
+    }
+    public static void run() {
         try {
             Main_GUI mainApp = new Main_GUI();
             JFrame frame = new JFrame("Luna App Launcher");

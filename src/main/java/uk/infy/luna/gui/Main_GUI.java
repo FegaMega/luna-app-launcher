@@ -91,74 +91,160 @@ public class Main_GUI extends JFrame {
                 }
             }
         });
-//        View source codes all check if its already been installed once (Tho if i update my projects these become outdated so i need a way to auto clean them)
+/*
+        View source codes all check if its already been installed once
+        Replace tendays with:
+        long tendays = 60L * 1000;
+        To test the duration deletion (sets it to 1 minute whereas long tendays = 10L * 24 * 60 * 60 * 1000; is 10 days
+*/
         luna_launcher_source_code.addActionListener(e -> {
             String filePathZip = "./sources/luna_launcher.zip";
             String filePath = "./sources/luna_launcher";
             File file = new File(filePath);
-            if (file.exists()) {
-                functions.openSourceCodeViewer(filePath);
-            } else {
-                try {
-                    String fileUrl = "https://github.com/Hussein-Playz/Luna-Launcher/archive/refs/heads/master.zip";
-                    functions.downloadFile(fileUrl, filePathZip);
-                    functions.extractZipFile(filePathZip, filePath);
-                    functions.openSourceCodeViewer(filePath);
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(null, "Failed to download the file: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            File zip = new File(filePathZip);
+            String fileUrl = "https://github.com/Hussein-Playz/Luna-Launcher/archive/refs/heads/master.zip";
+            boolean shouldRedownload = false;
+            if (zip.exists()) {
+                long lastmodified = zip.lastModified();
+                long currentTime = System.currentTimeMillis();
+                long tendays = 10L * 24 * 60 * 60 * 1000;
+                if (currentTime - lastmodified >= tendays) {
+                    shouldRedownload = true;
                 }
             }
+            if (file.exists()) {
+                functions.DeleteStuff(file);
+                file.delete();
+            }
+            if (shouldRedownload || !zip.exists()) {
+                if (zip.exists()) {
+                    zip.delete();
+                }
+                try {
+                    functions.downloadFile(fileUrl, filePathZip);
+                    functions.extractZipFile(filePathZip, filePath);
+                    zip.delete();
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null, "Failed to download the file: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+
+            functions.openSourceCodeViewer(filePath);
         });
         app_launcher_source_code.addActionListener(e -> {
             String filePathZip = "./sources/luna_app_launcher.zip";
             String filePath = "./sources/luna_app_launcher";
             File file = new File(filePath);
-            if (file.exists()) {
-                functions.openSourceCodeViewer(filePath);
-            } else {
-                try {
-                    String fileUrl = "https://github.com/Hussein-Playz/luna-app-launcher/archive/refs/heads/main.zip";
-                    functions.downloadFile(fileUrl, filePathZip);
-                    functions.extractZipFile(filePathZip, filePath);
-                    functions.openSourceCodeViewer(filePath);
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(null, "Failed to download the file: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            File zip = new File(filePathZip);
+            String fileUrl = "https://github.com/Hussein-Playz/luna-app-launcher/archive/refs/heads/main.zip";
+            boolean shouldRedownload = false;
+
+            if (zip.exists()) {
+                long lastmodified = zip.lastModified();
+                long currentTime = System.currentTimeMillis();
+                long tendays = 10L * 24 * 60 * 60 * 1000;
+                if (currentTime - lastmodified >= tendays) {
+                    shouldRedownload = true;
                 }
             }
+
+            if (file.exists()) {
+                functions.DeleteStuff(file);
+                file.delete();
+            }
+
+            if (shouldRedownload || !zip.exists()) {
+                if (zip.exists()) {
+                    zip.delete();
+                }
+                try {
+                    functions.downloadFile(fileUrl, filePathZip);
+                    functions.extractZipFile(filePathZip, filePath);
+                    zip.delete();
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null, "Failed to download the file: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+
+            functions.openSourceCodeViewer(filePath);
         });
         minecraft_server_mod_source_code.addActionListener(e -> {
             String filePathZip = "./sources/minecraft_server_mod.zip";
             String filePath = "./sources/minecraft_server_mod";
             File file = new File(filePath);
-            if (file.exists()) {
-                functions.openSourceCodeViewer(filePath);
-            } else {
-                try {
-                    String fileUrl = "https://github.com/Hussein-Playz/husseinmod/archive/refs/heads/main.zip";
-                    functions.downloadFile(fileUrl, filePathZip);
-                    functions.extractZipFile(filePathZip, filePath);
-                    functions.openSourceCodeViewer(filePath);
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(null, "Failed to download the file: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            File zip = new File(filePathZip);
+            String fileUrl = "https://github.com/Hussein-Playz/husseinmod/archive/refs/heads/main.zip";
+            boolean shouldRedownload = false;
+
+            if (zip.exists()) {
+                long lastmodified = zip.lastModified();
+                long currentTime = System.currentTimeMillis();
+                long tendays = 10L * 24 * 60 * 60 * 1000;
+                if (currentTime - lastmodified >= tendays) {
+                    shouldRedownload = true;
                 }
             }
+
+            if (file.exists()) {
+                functions.DeleteStuff(file);
+                file.delete();
+            }
+
+            if (shouldRedownload || !zip.exists()) {
+                if (zip.exists()) {
+                    zip.delete();
+                }
+                try {
+                    functions.downloadFile(fileUrl, filePathZip);
+                    functions.extractZipFile(filePathZip, filePath);
+                    zip.delete();
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null, "Failed to download the file: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+
+            functions.openSourceCodeViewer(filePath);
         });
         website_source_code.addActionListener(e -> {
             String filePathZip = "./sources/website.zip";
             String filePath = "./sources/website";
             File file = new File(filePath);
-            if (file.exists()) {
-                functions.openSourceCodeViewer(filePath);
-            } else {
-                try {
-                    String fileUrl = "https://github.com/Hussein-Playz/mywebiste/archive/refs/heads/main.zip";
-                    functions.downloadFile(fileUrl, filePathZip);
-                    functions.extractZipFile(filePathZip, filePath);
-                    functions.openSourceCodeViewer(filePath);
-                } catch (IOException ex) {
-                    JOptionPane.showMessageDialog(null, "Failed to download the file: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            File zip = new File(filePathZip);
+            String fileUrl = "https://github.com/Hussein-Playz/mywebiste/archive/refs/heads/main.zip";
+            boolean shouldRedownload = false;
+
+            if (zip.exists()) {
+                long lastmodified = zip.lastModified();
+                long currentTime = System.currentTimeMillis();
+                long tendays = 10L * 24 * 60 * 60 * 1000;
+                if (currentTime - lastmodified >= tendays) {
+                    shouldRedownload = true;
                 }
             }
+
+            if (file.exists()) {
+                functions.DeleteStuff(file);
+                file.delete();
+            }
+
+            if (shouldRedownload || !zip.exists()) {
+                if (zip.exists()) {
+                    zip.delete();
+                }
+                try {
+                    functions.downloadFile(fileUrl, filePathZip);
+                    functions.extractZipFile(filePathZip, filePath);
+                    zip.delete();
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(null, "Failed to download the file: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+
+            functions.openSourceCodeViewer(filePath);
         });
 //        Theme setup changes ./themes/theme.txt to whatever is in there which is then reaade by the Main file at launch to determine your previous theme
         functions.setTheme(themedark, "dark");
